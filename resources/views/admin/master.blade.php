@@ -22,37 +22,37 @@
             transition: all 0.3s;
             background-color: #f8f9fa;
         }
-    
+
         #sidebar.active {
             width: 80px;
         }
-    
+
         #content {
             margin-left: 230px;
             transition: all 0.3s;
         }
-    
+
         #content.active {
             margin-left: 80px;
         }
-    
+
         .navbar-brand img {
             max-width: 100%;
             height: auto;
         }
-    
+
         #sidebar .nav-item a.nav-link {
             color: black;
             background-color: transparent;
             transition: background-color 0.1s ease-in-out;
         }
-    
+
         .nav-link.active,
         .nav-link:hover {
             background-color: #41A0E4;
             color: white;
         }
-    
+
         #sidebar .nav-item a.nav-link:hover {
             background-color: #41A0E4;
             color: white;
@@ -73,17 +73,19 @@
                         <small>{{ auth('admin')->user()->name }}</small>
                     </li>
                     <li class="nav-item">
-                        <img src="{{ asset('admin/images/profile.png') }}" alt="Profile" class="rounded-circle" width="50" height="50">
+                        <img src="{{ asset('admin/images/profile.png') }}" alt="Profile" class="rounded-circle"
+                            width="50" height="50">
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link- dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <a class="nav-link- dropdown-toggle" href="#" id="userDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
                             <span class="sr-only"></span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end text-center" aria-labelledby="userDropdown">
-                            
+
                             <li>
-                                <img src="{{ asset('admin/images/profile.png') }}" alt="Profile" class="rounded-circle" width="50" height="50"><br>
+                                <img src="{{ asset('admin/images/profile.png') }}" alt="Profile" class="rounded-circle"
+                                    width="50" height="50"><br>
                                 <small style="font-size: 11px; color:#41A0E4">Hallo Admin,</small><br>
                                 <small>{{ auth('admin')->user()->name }}</small>
                             </li>
@@ -98,7 +100,7 @@
                                     </button>
                                 </form>
                             </li>
-                            
+
                         </ul>
                     </li>
                 </ul>
@@ -118,8 +120,7 @@
                     </ul>
                     <ul class="nav flex-column" style="margin-left:1rem;color:#000">
                         <li class="nav-item">
-                            <a class="nav-link active"
-                                href="{{ route('admin.dashboard') }}">
+                            <a class="nav-link active" href="{{ route('admin.dashboard') }}">
                                 <i class="bi bi-house-door icon-image"></i> Dashboard
                             </a>
                         </li>
@@ -145,21 +146,30 @@
         </div>
     </div>
     <!-- Include Bootstrap JS and Popper.js -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
-    @stack('scripts')
+    <<!-- Include jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <script>
-        // Toggle sidebar width
-        document.getElementById('sidebarCollapse').addEventListener('click', function() {
-            const sidebar = document.getElementById('sidebar');
-            const content = document.getElementById('content');
-            sidebar.classList.toggle('active');
-            content.classList.toggle('active');
-        });
-    </script>
+        <!-- Include Bootstrap JS (Bootstrap 5) -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+        <!-- Include DataTables -->
+        <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+
+        <!-- Masukkan script Popper.js -->
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+        @stack('scripts')
+
+        <script>
+            // Toggle sidebar width
+            document.getElementById('sidebarCollapse').addEventListener('click', function() {
+                const sidebar = document.getElementById('sidebar');
+                const content = document.getElementById('content');
+                sidebar.classList.toggle('active');
+                content.classList.toggle('active');
+            });
+        </script>
 </body>
 
 </html>

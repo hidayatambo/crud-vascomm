@@ -129,7 +129,7 @@
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <p>Apakah Anda yakin ingin menghapus produk ini?</p>
+                            <p>Apakah Kamu ingin menghapus <span id="deleteProductName"></span>?</p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
@@ -275,12 +275,16 @@
             });
 
 
-            // Tampilkan modal Delete saat tombol Delete ditekan
+             // Tampilkan modal konfirmasi delete saat tombol Delete ditekan
             $('#productTable').on('click', '.delete-btn', function() {
                 var productId = $(this).data('id');
+                var productName = $(this).data('name');
+                $('#deleteProductName').text(productName); 
                 $('#deleteForm').attr('action', "{{ url('admin/produk') }}" + '/' + productId);
                 $('#deleteModal').modal('show');
             });
+
+            // Proses hapus saat tombol Hapus di modal konfirmasi ditekan
             $('#deleteModal').on('click', '#deleteBtn', function() {
                 var productId = $('#deleteForm').attr('action').split('/').pop();
                 $.ajax({
@@ -292,7 +296,9 @@
                     success: function(response) {
                         $('#deleteModal').modal('hide');
                         // Refresh or reload the DataTable
-                        $('#productTable').DataTable().ajax.reload();
+                        // $('#productTable').DataTable().ajax.reload();
+                        window.location.reload();
+
                     },
                     error: function() {
                         alert('Terjadi kesalahan saat menghapus produk.');

@@ -25,7 +25,7 @@ class ProdukController extends Controller
                 })
                 ->addColumn('action', function ($product) {
                     return '<button type="button" class="btn btn-sm edit-btn text-success" data-id="' . $product->id . '"><i class="fas fa-edit"></i></button>' .
-                    '<button type="button" class="btn btn-sm delete-btn text-warning" data-id="' . $product->id . '"><i class="fas fa-trash"></i></button>'; 
+                    '<button type="button" class="btn btn-sm delete-btn text-warning" data-id="' . $product->id . '" data-name="' . $product->name . '" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash"></i></button>'; 
                 })
                 ->rawColumns(['image', 'status', 'action'])
                 ->make(true);
@@ -63,29 +63,32 @@ class ProdukController extends Controller
 
 
     public function update(Request $request, $id)
-    {
-        $product = Product::find($id);
-        $product->name = $request->name;
-        // Update other fields accordingly
-        $product->status = $request->status; // Update status field
-        $price = str_replace(['Rp ', '.', ','], '', $request->price);
-        $product->price = (int) $price;
+{
+    $product = Product::find($id);
+    $product->name = $request->name;
+    // Update other fields accordingly
+    $product->status = $request->status; // Update status field
 
+    // Convert formatted price back to numeric value
+    $formattedPrice = str_replace(['Rp ', '.', ','], '', $request->price);
+    $numericPrice = (int) filter_var($formattedPrice, FILTER_SANITIZE_NUMBER_INT);
+    $product->price = $numericPrice;
 
-        // Handle image upload
-        if ($request->hasFile('image')) {
-            // Delete old image if exists
-            if ($product->image) {
-                Storage::delete('public/' . $product->image);
-            }
-
-            $imagePath = $request->file('image')->store('product_images', 'public');
-            $product->image = $imagePath;
+    // Handle image upload
+    if ($request->hasFile('image')) {
+        // Delete old image if exists
+        if ($product->image) {
+            Storage::delete('public/' . $product->image);
         }
 
-        $product->save();
-        return redirect()->route('admin.produk')->with('success', 'Produk berhasil diperbarui');
+        $imagePath = $request->file('image')->store('product_images', 'public');
+        $product->image = $imagePath;
     }
+
+    $product->save();
+    return redirect()->route('admin.produk')->with('success', 'Produk berhasil diperbarui');
+}
+
 
     public function destroy($id)
     {
