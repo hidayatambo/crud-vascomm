@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Customer;
+use App\Models\Product;
+
 
 
 class AdminController extends Controller
@@ -31,7 +34,13 @@ class AdminController extends Controller
     
     public function adminDashboard()
     {
-        return view('admin.dashboard');
+        $totalProducts = Product::count();
+        $totalUsers = Customer::count();
+        $activeProducts = Product::where('status', true)->count();
+        $activeUsers = Customer::where('status', true)->count();
+        $latestProducts = Product::where('status', true)->latest()->take(10)->get();
+
+        return view('admin.dashboard', compact('totalProducts', 'totalUsers', 'activeProducts', 'activeUsers', 'latestProducts'));
     }
     
     public function adminLogout()
