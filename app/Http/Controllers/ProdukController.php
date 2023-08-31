@@ -18,7 +18,7 @@ class ProdukController extends Controller
                 ->addColumn('image', function ($product) {
                     return $product->image
                         ? '<img src="' . asset('storage/' . $product->image) . '" alt="Gambar Produk" class="img-fluid" style="max-width: 100px;">'
-                        : 'Tidak ada gambar';
+                        : '<img src="' . asset('admin/images/profile.png') . '" alt="Gambar Default" class="img-fluid" style="max-width: 100px;">';
                 })
                 ->addColumn('status', function ($product) {
                     return $product->status ? true : false;
