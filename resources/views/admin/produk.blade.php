@@ -123,17 +123,18 @@
                 <div class="modal-content">
                     <form id="deleteForm">
                         @csrf
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="deleteModalLabel">Hapus Produk</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
+                        <div class="modal-header" style="border: none; margin: 0;">
+                            <h5 class="modal-title" id="deleteModalLabel"><img src="{{asset('admin/images/logout.png')}}" style="margin-left: -15px; margin-top: -15px;" alt="" srcset=""></h5>
                         </div>
-                        <div class="modal-body">
-                            <p>Apakah Kamu ingin menghapus <span id="deleteProductName"></span>?</p>
+                        <div class="modal-body"> <br><br>
+                            <h3 class="text-center">Konfirmasi Hapus</h3>
+
+                            <p class="text-center text-muted">Apakah Anda yakin ingin menghapus <span id="deleteProductName"></span>?</p>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
-                            <button type="button" id="deleteBtn" class="btn btn-danger">Hapus</button>
+                        <div class="modal-footer mt-2 mb-2">
+                            <br>
+                            <button type="button" class="btn btn-light text-muted mt-3" data-bs-dismiss="modal" style="color: #ffffff">Tidak</button>
+                            <button type="button" id="deleteBtn" class="btn mt-3" style="background-color: #41A0E4; color: #ffffff">Hapus</button>
                         </div>
                     </form>
                 </div>
@@ -266,7 +267,8 @@
                     processData: false,
                     success: function(response) {
                         editModal.modal('hide');
-                        $('#productTable').DataTable().ajax.reload();
+                        // $('#productTable').DataTable().ajax.reload();
+                        window.location.reload();
                     },
                     error: function() {
                         alert('Terjadi kesalahan saat menyimpan perubahan produk.');
@@ -320,7 +322,8 @@
                     processData: false,
                     success: function(response) {
                         tambahModal.modal('hide');
-                        $('#productTable').DataTable().ajax.reload();
+                        // $('#productTable').DataTable().ajax.reload();
+                        window.location.reload();
                     },
                     error: function() {
                         alert('Terjadi kesalahan saat menambahkan produk.');

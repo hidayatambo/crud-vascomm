@@ -10,7 +10,7 @@ class Customer extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $table = 'customers';
+    // protected $table = 'customers';
 
     protected $fillable = [
         'name',

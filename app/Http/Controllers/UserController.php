@@ -13,14 +13,14 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $products = Customer::all();
-            return DataTables::of($products)
-                ->addColumn('status', function ($product) {
-                    return $product->status ? true : false;
+            $users = Customer::all();
+            return DataTables::of($users)
+                ->addColumn('status', function ($user) {
+                    return $user->status ? true : false;
                 })
-                ->addColumn('action', function ($product) {
-                    return '<button type="button" class="btn btn-sm edit-btn text-success" data-id="' . $product->id . '"><i class="fas fa-edit"></i></button>' .
-                    '<button type="button" class="btn btn-sm delete-btn text-warning" data-id="' . $product->id . '"><i class="fas fa-trash"></i></button>'; 
+                ->addColumn('action', function ($user) {
+                    return '<button type="button" class="btn btn-sm edit-btn text-success" data-id="' . $user->id . '"><i class="fas fa-edit"></i></button>' .
+                    '<button type="button" class="btn btn-sm delete-btn text-warning" data-id="' . $user->id . '" data-name="' . $user->name . '" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash"></i></button>'; 
                 })
                 ->rawColumns(['status', 'action'])
                 ->make(true);
@@ -74,12 +74,12 @@ class UserController extends Controller
     }
     public function destroy($id)
     {
-        $product = Customer::findOrFail($id);
+        $user = Customer::findOrFail($id);
 
         // Hapus gambar produk dari penyimpanan jika ada
 
         // Hapus data produk dari database
-        $product->delete();
+        $user->delete();
 
         return response()->json(['message' => 'Produk berhasil dihapus.']);
     }
